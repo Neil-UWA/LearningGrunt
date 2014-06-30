@@ -1,33 +1,49 @@
 (function() {
-  var blue, getRed, randomNum, red, redResult, tmp,
+  var Chance, Lottery,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  require('coffee-script/register');
+  Chance = require('chance');
 
-  red = [];
+  Lottery = (function() {
+    function Lottery() {}
 
-  randomNum = function(base, min) {
-    return parseInt(Math.random() * 15) + min;
-  };
+    Lottery.prototype.randomNum = function(start, end) {
+      var chance;
+      chance = new Chance();
+      return chance.integer({
+        min: start,
+        max: end
+      });
+    };
 
-  blue = randomNum(15, 1);
+    Lottery.prototype.blue = function() {
+      return this.randomNum(1, 15);
+    };
 
-  getRed = function() {
-    return randomNum(33, 1);
-  };
+    Lottery.prototype.red = function() {
+      return this.randomNum(1, 33);
+    };
 
-  while (red.length !== 6) {
-    tmp = getRed();
-    while (__indexOf.call(red, tmp) >= 0) {
-      tmp = getRed();
-    }
-    red.push(tmp);
-  }
+    Lottery.prototype.bang = function() {
+      var red, redResult, tmp;
+      red = [];
+      while (red.length !== 6) {
+        tmp = this.red();
+        while (__indexOf.call(red, tmp) >= 0) {
+          tmp = this.red();
+        }
+        red.push(tmp);
+      }
+      redResult = red.sort(function(a, b) {
+        return a > b;
+      });
+      return console.log("" + redResult + ":" + (this.blue()));
+    };
 
-  redResult = red.sort(function(a, b) {
-    return a > b;
-  });
+    return Lottery;
 
-  console.log("" + redResult + ":" + blue);
+  })();
+
+  module.exports = Lottery;
 
 }).call(this);
