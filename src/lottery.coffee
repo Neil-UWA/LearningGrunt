@@ -1,17 +1,19 @@
-require('coffee-script/register')
+require 'coffee-script/register'
+Chance = require 'chance'
 
 red = []
 
-randomNum = (base, min) ->
-  parseInt(Math.random() * 15) + min
+randomNum = (start, end) ->
+  chance = new Chance.integer()
+  chance.integer min: start, max: end
 
-blue = randomNum 15, 1
+blue = randomNum 1, 15
 
-getRed = () -> randomNum(33, 1)
+getred = () -> randomNum(1, 33)
   
 while red.length isnt 6
-  tmp = getRed()
-  tmp = getRed() while  tmp in red
+  tmp = getred()
+  tmp = getred() while  tmp in red
   red.push tmp
 
 redResult = red.sort((a, b) -> a > b)
