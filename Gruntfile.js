@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.registerTask('default', ['clean', 'coffee', 'jshint', 'uglify']);
+
   grunt.initConfig({
     clean: {
       it: {
@@ -11,14 +12,16 @@ module.exports = function(grunt) {
     },
     uglify: {
       build: {
-        src: './src/lottery.js',
+        src: './build/lottery.js',
         dest: './build/lottery.min.js'
       }
     },
     coffee: {
       compile: {
-        src: './src/lottery.coffee',
-        dest: './build/lottery.js'
+        files: {
+          './build/main.js' : './src/main.coffee',
+          './build/lottery.js': './src/lottery.coffee'
+        }
       }
     }
   });
