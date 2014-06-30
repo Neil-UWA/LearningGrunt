@@ -5,14 +5,15 @@
   "main": "lottery.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/lottery.js"
+    "start": "node ./build/main.js"
   },
   "author": "Neil",
   "license": "ISC",
   "dependencies": {
     "coffee-script": "^1.7.1",
     "grunt": "^0.4.5",
-    "load-grunt-tasks": "^0.6.0"
+    "load-grunt-tasks": "^0.6.0",
+    "chance": "^0.5.8"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.10.0",
